@@ -8,15 +8,7 @@ env:
   AWS_DEFAULT_REGION:    "us-east-2"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Check
-        uses: ./.github/action-check
-      - name: Build
-        uses: ./.github/action-build
-  deploy-staging:
+   deploy-staging:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
