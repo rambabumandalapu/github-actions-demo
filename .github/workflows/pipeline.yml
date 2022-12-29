@@ -1,36 +1,20 @@
-name: Pipeline
+name: Run packer build on a template file
 
-on: [push]
-
-env:
-  AWS_ACCESS_KEY_ID:     "AKIAQHFTVRX34PJ7KG42"
-  AWS_SECRET_ACCESS_KEY: "L2pbHN1nO9LX7bjuYK/ByX0ZVPVs8LKmuSXlW4A"
-  AWS_DEFAULT_REGION:    "us-east-2"
-
+on:
+  push:
+    branches:
+        - 'master'
 jobs:
-  build:
+  packer_build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Check
-        uses: ./.github/action-check
-      - name: Build
-        uses: ./.github/action-build
-  deploy-staging:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v2
-      - name: deploy
-        uses: ./.github/action-deploy
+      - uses: actions/checkout@v1
+      - name: Packer build
+        uses: ExitoLab/packer_build_action_aws@v0.2.10
         with:
-          args: "staging"
-  deploy-production:
-    runs-on: ubuntu-latest
-    needs: [deploy-staging]
-    steps:
-      - uses: actions/checkout@v2
-      - name: deploy
-        uses: ./.github/action-deploy
-        with:
-          args: "production"
+          templateFile: 'ami.json'
+          workingDir: '0.AMI'
+        env:
+          AWS_ACCESS_KEY_ID: "AKIAQHFTVRX34PJ7KG42"
+          AWS_SECRET_ACCESS_KEY: "L2pbHN1nO9LX7bjuYK/ByX0ZVPVs8LKmuSXlW4A"
+          AWS_DEFAULT_REGION: us-east-1
