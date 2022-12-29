@@ -5,7 +5,7 @@ on: [push]
 env:
   AWS_ACCESS_KEY_ID:     "AKIAQHFTVRX34PJ7KG42"
   AWS_SECRET_ACCESS_KEY: "L2pbHN1nO9LX7bjuYK/ByX0ZVPVs8LKmuSXlW4A"
-  AWS_DEFAULT_REGION:    "us-east-2""
+  AWS_DEFAULT_REGION:    "us-east-2"
 
 jobs:
   build:
